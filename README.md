@@ -18,7 +18,7 @@
 Script uses no 3rd party libraries.
 
 ### Usage:
-Example of usage in virtual enviroment:
+Example of usage if in root of the repository:
 
 ```python logcompressor/logcompressor.py -p 'path1/logs' 'path2/logs' -c 7 -r -d```
 
