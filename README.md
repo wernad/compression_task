@@ -19,7 +19,9 @@ Script uses no 3rd party libraries.
 
 ### Usage:
 Example of usage in virtual enviroment:
+
 ```python logcompressor/logcompressor.py -p 'path1/logs' 'path2/logs' -c 7 -r -d```
+
 This example tells the script to search recursively for log files in folders 'path1/logs' and 'path2/logs' and delete them after compression using level 7 compression. 
 
 Complete usage:
