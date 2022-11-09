@@ -52,7 +52,9 @@ class TestLogCompression(unittest.TestCase):
             self.assertEqual(compress_logs(args), None)
 
         file_count = len([name for name in os.listdir(self.main_folder)])
-        self.assertEqual(file_count, original_log_count * 2)
+
+        with patch('sys.stdout', new = StringIO()) as _:
+            self.assertEqual(file_count, original_log_count * 2)
 
         print('Basic compression test succesful.')
     
@@ -72,15 +74,18 @@ class TestLogCompression(unittest.TestCase):
         for path in self.test_paths:
             file_count += len([name for name in os.listdir(path)])
         
-        self.assertEqual(file_count, original_log_count * 2)
+        with patch('sys.stdout', new = StringIO()) as _:
+            self.assertEqual(file_count, original_log_count * 2)
 
         args.paths = ['nonexistent_path/logs']
         
-        self.assertEqual(compress_logs(args), 2)
+        with patch('sys.stdout', new = StringIO()) as _:
+            self.assertEqual(compress_logs(args), 2)
 
         args.paths = [self.log_folder, 'nonexistent_path/logs']
         
-        self.assertEqual(compress_logs(args), 2)
+        with patch('sys.stdout', new = StringIO()) as _:
+            self.assertEqual(compress_logs(args), 2)
 
         print('Multiple paths test succesful.')
 
@@ -94,7 +99,9 @@ class TestLogCompression(unittest.TestCase):
             self.assertEqual(compress_logs(args), None)
 
         file_count = len([name for name in os.listdir(self.main_folder)])
-        self.assertEqual(file_count, original_log_count)
+
+        with patch('sys.stdout', new = StringIO()) as _:
+            self.assertEqual(file_count, original_log_count)
 
         print('Delete logs after compression test succesful.')
 
@@ -114,7 +121,8 @@ class TestLogCompression(unittest.TestCase):
 
         file_count = sum([len(file) for file in [files for _, _, files in os.walk(self.main_folder)]])
 
-        self.assertEqual(file_count, original_log_count * 2)
+        with patch('sys.stdout', new = StringIO()) as _:
+            self.assertEqual(file_count, original_log_count * 2)
 
         print('Recursive log search test succesfull.')
 
@@ -134,7 +142,8 @@ class TestLogCompression(unittest.TestCase):
 
         file_count = sum([len(file) for file in [files for _, _, files in os.walk(self.main_folder)]])
 
-        self.assertEqual(file_count, original_log_count)
+        with patch('sys.stdout', new = StringIO()) as _:
+            self.assertEqual(file_count, original_log_count)
 
         print('Recursive log search with delete after compression test succesfull.')
 
